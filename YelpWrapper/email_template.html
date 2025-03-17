@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>$business_name - Discover Excellence</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f7f7f7;
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        padding: 20px;
+        color: #505050;
+      }
+      .email-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      }
+      .header {
+        background: #f0f8ff; /* Alice Blue */
+        padding: 25px 20px;
+        text-align: center;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 2rem;
+        color: #3399ff; /* Light blue */
+      }
+      .content {
+        padding: 25px 20px;
+        text-align: center;
+      }
+      .content p {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin: 20px 0;
+        color: #707070;
+      }
+      .highlight {
+        color: #3399ff;
+        font-weight: 500;
+      }
+      .button {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: #3399ff;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: 500;
+        margin-top: 20px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        border: none;
+      }
+      .button:hover {
+        background-color: #287acc;
+        transform: translateY(-2px);
+      }
+      .image-container img {
+        width: 100%;
+        display: block;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+      }
+      @media (max-width: 600px) {
+        .header h1 {
+          font-size: 1.6rem;
+        }
+        .content p {
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="header">
+        <h1>$business_name</h1>
+      </div>
+      <div class="content">
+        <p>
+          Discover the excellence of <strong>$business_name</strong>! With
+          <strong class="highlight">$review_count</strong> curated reviews and a
+          rating of <strong class="highlight">$rating</strong>, this destination
+          exemplifies quality.
+        </p>
+        <p>
+          Located at <strong>$address</strong>, it’s ready to welcome you. For
+          inquiries or reservations, call us at
+          <strong class="highlight">$phone</strong>.
+        </p>
+        <a href="tel:$phone" class="button">Call Now</a>
+      </div>
+      <div class="image-container">
+        <img src="$image" alt="$business_name" />
+      </div>
+    </div>
+  </body>
+</html>

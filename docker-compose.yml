@@ -1,0 +1,71 @@
+services:
+  db:
+    image: mysql:8.1
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - network_db:/var/lib/mysql
+    restart: always
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    restart: unless-stopped
+
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+      DJANGO_DB_HOST: db
+      DJANGO_DB_PORT: 3306
+      DJANGO_DB_NAME: ${MYSQL_DATABASE}
+      DJANGO_DB_USER: ${MYSQL_USER}
+      DJANGO_DB_PASSWORD: ${MYSQL_PASSWORD}
+      CELERY_BROKER_URL: pyamqp://guest:guest@rabbitmq//
+    depends_on:
+      - db
+      - rabbitmq
+      # - yelp_wrapper
+    restart: unless-stopped
+    volumes:
+      - .:/app
+
+  # yelp_wrapper:
+  #   build:
+  #     context: ./YelpWrapper
+  #     dockerfile: ./Dockerfile
+  #   environment:
+  #     APP_PASSWORD: ${APP_PASSWORD}
+  #     SENDER: ${SENDER}
+  #     RECEIVER: ${RECEIVER}
+  #     YELP_FUSION_API: ${YELP_FUSION_API}
+  #   restart: unless-stopped
+  #   volumes:
+  #     - .:/app
+  #   depends_on:
+  #     - rabbitmq
+
+  # Needs some work and thought
+  celery_worker:
+    build: .
+    command: celery -A local_scout worker --loglevel=info
+    depends_on:
+      - db
+      - rabbitmq
+      - web
+      # - yelp_wrapper
+    restart: unless-stopped
+    volumes:
+      - .:/app
+
+volumes:
+  network_db:
