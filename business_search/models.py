@@ -18,4 +18,5 @@ class BookmarkedBusiness(models.Model):
     longitude = models.FloatField()
     address = models.CharField(max_length=500)
     phone = models.CharField(max_length=255)
+    label = models.CharField(max_length=255)
     created = models.DateTimeField(auto_now_add=True)
